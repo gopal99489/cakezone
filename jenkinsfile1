@@ -1,0 +1,65 @@
+pipeline {
+    agent {
+        any
+    }
+
+    environment {
+        // Define environment variables
+        DOCKERHUB_CREDENTIALS = credentials('dockeruser')
+        registry = "gopal99489/sai"
+        registryCredential = 'dockerhub'
+    }
+
+    stages {
+        stage('Git') {
+            steps {
+                // Checkout the main branch from the specified GitHub repository
+                git branch: 'main', url: 'https://github.com/gopal99489/cakezone.git'
+            }
+        }
+
+        stage('Maven Build') {
+            steps {
+                // Build the Maven project
+                sh 'mvn clean install'
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Building the docker image') {
+            steps {
+                // Build the Docker image from the source code
+                sh 'cd live01 && docker build -t gopal99489/sai .'
+            }
+        }
+
+        stage('Logging into dockerhub account') {
+            steps {
+                // Log in to Docker Hub using provided credentials
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+
+        stage('Pushing the docker image into dockerhub') {
+            steps {
+                // Push the Docker image to Docker Hub
+                sh 'docker push gopal99489/sai'
+            }
+        }
+
+        stage('Remove old docker images') {
+            steps {
+                // Remove old Docker images
+                sh 'docker rmi -f gopal99489/sai'
+            }
+        }
+
+        stage('Running the docker container') {
+            steps {
+                // Remove existing container and run a new one
+                sh 'docker container rm --force cakezone'
+                sh 'docker run -dt -p 8082:8080 --name cakezone gopal99489/sai'
+            }
+        }
+    }
+}
