@@ -7,4 +7,4 @@ FROM tomcat
 
 #FROM tomcat:latest
 
-COPY /var/lib/jenkins/workspace/cakezone/target/*.war /usr/local/tomcat/webapps/ROOT.war
+COPY /var/lib/jenkins/.m2/repository/vamsi/maven/com/vamsi/0.0.1-SNAPSHOT/*.war /usr/local/tomcat/webapps/ROOT.war
