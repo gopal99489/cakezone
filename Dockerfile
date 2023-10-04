@@ -1,6 +1,6 @@
 FROM tomcat
 COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
-EXPOSE 3000
+EXPOSE 80
 CMD ["catalina.sh", "run"]
 
 
