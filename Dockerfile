@@ -6,7 +6,7 @@ FROM tomcat:latest
 
 WORKDIR /usr/local/tomcat/webapps
 
-COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
+COPY /var/lib/jenkins/workspace/cakezone/target/*.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 3000
 
