@@ -1,8 +1,8 @@
 FROM tomcat
 #COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
 COPY target/*.war /var/lib/tomcat9/webapps
-#EXPOSE 80
-#CMD ["catalina.sh", "run"]
+EXPOSE 3000
+CMD ["catalina.sh", "run"]
 
 
 #FROM tomcat:latest
