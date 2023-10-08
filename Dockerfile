@@ -9,7 +9,8 @@
 
 #COPY /var/lib/jenkins/.m2/repository/vamsi/maven/com/vamsi/0.0.1-SNAPSHOT/*.war /usr/local/tomcat/webapps/ROOT.war
 # Use the official Tomcat image as the base image
-FROM tomcat:9.0
+#FROM tomcat:9.0
+FROM adoptopenjdk:11-jre-hotspot-slim
 
 # Set the working directory inside the container
 WORKDIR /usr/local/tomcat/webapps
