@@ -15,7 +15,7 @@ FROM tomcat:9.0
 WORKDIR /usr/local/tomcat/webapps
 
 # Copy the WAR file built by Maven into the container at the Tomcat webapps directory
-COPY target/*.war ./ROOT.war
+COPY target/*.war ./ROOT
 
 # Expose port 3000 instead of 8080
 EXPOSE 3000
