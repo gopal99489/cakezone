@@ -29,7 +29,7 @@ pipeline {
         stage('Build & Push Docker Image') {
             steps {
              script {
-                 withDockerRegistry(credentialsId: '33a5a63e-5074-4e91-9a3b-43e9b1927421', toolName: 'docker') {
+                 withDockerRegistry(credentialsId: 'bcfea016-a008-4342-a795-4a9117712b64', toolName: 'docker') {
                     sh 'docker build -t cakezone:latest .'
                     sh 'docker tag cakezone:latest gopal99489/cakezone:latest'
                     sh 'docker push gopal99489/cakezone:latest'
@@ -41,10 +41,10 @@ pipeline {
         stage('Deploy To Container') {
             steps {
              script {
-                 withDockerRegistry(credentialsId: '33a5a63e-5074-4e91-9a3b-43e9b1927421', toolName: 'docker') {
+                withDockerRegistry(credentialsId: 'bcfea016-a008-4342-a795-4a9117712b64', toolName: 'docker') {
                     sh 'docker rmi -f gopal99489/cakezone'
-                    sh 'docker container rm --force cakezone-gopal'
-                    sh 'docker run -d --name cakezone-gopal -p 3000:3000 gopal99489/cakezone:latest'
+                    // sh 'docker container rm --force cakezone-gopal'
+                    sh 'docker run -d --name cakezone-gopal -p 3000:8080 gopal99489/cakezone:latest'
                     }
                 }
             }
