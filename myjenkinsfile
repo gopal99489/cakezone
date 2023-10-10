@@ -44,6 +44,7 @@ pipeline {
                 withDockerRegistry(credentialsId: 'bcfea016-a008-4342-a795-4a9117712b64', toolName: 'docker') {
                     sh 'docker rmi -f gopal99489/cakezone'
                     // sh 'docker container rm --force cakezone-gopal'
+sh 'docker rm -f $(docker ps -qa)'
                     sh 'docker run -d --name cakezone-gopal -p 3000:8080 gopal99489/cakezone:latest'
                     }
                 }
